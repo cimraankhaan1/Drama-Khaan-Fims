@@ -26,8 +26,8 @@ OWNER_USERNAME = environ.get("OWNER_USERNAME", 'BOT_OWNER26')  # Owner's usernam
 BOT_USERNAME = environ.get("BOT_USERNAME", 'AV_F2L_BOT')  # Bot's username
 
 # 🔗 Channel & Support Links
-CHANNEL = environ.get('CHANNEL', 'https://t.me/AV_BOTz_UPDATE')  # Updates channel
-SUPPORT = environ.get('SUPPORT', 'https://t.me/AV_SUPPORT_GROUP')  # Support group
+CHANNEL = environ.get('CHANNEL', 'https://t.me/+OkZLiISfyNs4YmI0')  # Updates channel
+SUPPORT = environ.get('SUPPORT', 'https://media.khaanfilms.com')  # Support group
 HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', 'https://t.me/')  # Verification guide link
 HOW_TO_OPEN = environ.get('HOW_TO_OPEN', 'https://t.me/')  # File access guide link
 
