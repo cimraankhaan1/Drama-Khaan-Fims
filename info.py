@@ -91,3 +91,5 @@ FQDN = getenv("FQDN", "") or BIND_ADDRESS  # Full domain name or fallback to bin
 PORT_SEGMENT = "" if NO_PORT else f":{PORT}/"  # Port in URL if not disabled
 PROTOCOL = "https" if HAS_SSL else "http"  # Protocol for URL
 URL = f"{PROTOCOL}://{FQDN}{PORT_SEGMENT}"  # Final generated base URL
+BASE_URL = "http://127.0.0.1"
+BASE_URL_PORT = 8000
