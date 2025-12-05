@@ -67,7 +67,7 @@ async def start():
     time = now.strftime("%H:%M:%S %p")
     Webavbot.loop.create_task(check_expired_premium(Webavbot))
     
-    # --- Qeybtan waa la hagaajiyay si uusan Bot-ka u istaagin (Crash) ---
+    # --- Try/Except Block si uusan u istaagin ---
     try:
         await Webavbot.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
     except Exception:
@@ -82,12 +82,23 @@ async def start():
         await Webavbot.send_message(chat_id=SUPPORT_GROUP, text=f"<b>{me.mention} ʀᴇsᴛᴀʀᴛᴇᴅ 🤖</b>")
     except Exception:
         pass
-    # -------------------------------------------------------------------
+    # ---------------------------------------------
 
     app = web.AppRunner(await web_server())
     await app.setup()
     bind_address = "0.0.0.0"
-    await web.TCPSite(app, bind_address, PORT).start()
+    
+    # --- FIX: Waxaan qasab ka dhignay Port 8000 si Koyeb uusan u damin ---
+    # Waxaan hubineynaa in Port-ku yahay 8000 hadii kale Koyeb Health Check ayaa fashilmaya
+    if "PORT" in os.environ:
+        PORT_TO_USE = int(os.environ.get("PORT"))
+    else:
+        PORT_TO_USE = 8000
+        
+    await web.TCPSite(app, bind_address, PORT_TO_USE).start()
+    logging.info(f"----------------------- Web Server Started on Port {PORT_TO_USE} -----------------------")
+    # ----------------------------------------------------------------------
+    
     await idle()
 
 #Dont Remove My Credit @AV_BOTz_UPDATE 
