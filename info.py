@@ -83,11 +83,26 @@ else:
     ON_HEROKU = False
 
 # 🌐 Server Settings
-PORT = int(getenv('PORT', '8000'))  # Port for web server
-NO_PORT = str(getenv("NO_PORT", False)).lower() in ("true", "1", "yes")  # Disable port in URL
-HAS_SSL = str(getenv("HAS_SSL", False)).lower() in ("true", "1", "yes")  # Use HTTPS if True
-BIND_ADDRESS = getenv("WEB_SERVER_BIND_ADDRESS", "0.0.0.0")  # Server bind address
-FQDN = getenv("FQDN", "") or BIND_ADDRESS  # Full domain name or fallback to bind address
-PORT_SEGMENT = "" if NO_PORT else f":{PORT}/"  # Port in URL if not disabled
-PROTOCOL = "https" if HAS_SSL else "http"  # Protocol for URL
-URL = f"{PROTOCOL}://{FQDN}{PORT_SEGMENT}"  # Final generated base URL
+PORT = int(getenv('PORT', '8000'))
+# Waxaan ka dhignay True si uu u qariyo Port-ka (8000) ee linkiga
+NO_PORT = True 
+# Waxaan ka dhignay True si uu u isticmaalo HTTPS
+HAS_SSL = True 
+BIND_ADDRESS = getenv("WEB_SERVER_BIND_ADDRESS", "0.0.0.0")
+
+# Halkan geli Linkigaaga Koyeb (Kii aad iisoo dirtay)
+FQDN = getenv("FQDN", "continued-linette-khaanfilms-b074bfa3.koyeb.app")
+
+# Hubin iyo Hagaajin URL-ka
+PROTOCOL = "https" if HAS_SSL else "http"
+
+# Halkan waa meesha aan ku saxnay cilada 'appwatch'
+if NO_PORT:
+    # Haddii Port la qariyo, waxaan ku qasbeynaa inuu '/' ku daro
+    URL = f"{PROTOCOL}://{FQDN}/"
+else:
+    URL = f"{PROTOCOL}://{FQDN}:{PORT}/"
+
+# Sii hubi inuusan laba jeer ku darin (//)
+if URL.endswith("//"):
+    URL = URL[:-1]
